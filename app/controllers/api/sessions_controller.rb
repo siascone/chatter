@@ -14,13 +14,14 @@ class Api::SessionsController < ApplicationController
     def create
         username = params[:username]
         password = params[:password]
-        debugger
+        
         @user = User.find_by_credentials(username, password)
         if @user
             login(@user)
             render 'api/users/show'
         else
-            render json: { errors: ['Invalid credentials'] }, status: 422
+            
+            render json: { errors: ['Invalid credentials'] }, status: :unprocessable_entity
         end
     end
 
