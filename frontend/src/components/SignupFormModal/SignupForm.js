@@ -25,8 +25,8 @@ function SignupForm () {
         setErrors([]);
 
         return dispatch(sessionActions.signup({ email, password, username }))
-            .then(async (res) => {
-                if (!res.ok) {
+            .catch(async (res) => {
+                // if (!res.ok) {
                     let data;
                     try {
                         // .clone() essentially allows you to read the response body twice
@@ -37,7 +37,7 @@ function SignupForm () {
                     if (data?.errors) setErrors(data.errors);
                     else if (data) setErrors(data);
                     else setErrors([res.statusText]);
-                }
+                // }
             });
     };
 
@@ -78,7 +78,7 @@ function SignupForm () {
                     required
                 />
 
-                <button type="submit">Log In</button>
+                <button type="submit">Sign Up</button>
                 <button onClick={demoLogin} className='demo-login'>Demo Login</button>
             </form>
         </div>
