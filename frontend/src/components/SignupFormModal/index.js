@@ -6,9 +6,15 @@ import SignupForm from './SignupForm';
 function SignupFormModal() {
     const [showModal, setShowModal] = useState(false);
 
+    const openModal = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setShowModal(true)
+    }
+
     return (
         <div>
-            <button onClick={() => setShowModal(true)}>Sign Up</button>
+            <button onClick={openModal} className='session-button signup'>Sign Up</button>
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
                     <SignupForm />

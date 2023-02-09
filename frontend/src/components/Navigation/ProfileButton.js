@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import * as sessionActions from '../../store/session';
+import LoginFormModal from '../LoginFormModal';
+import SignupFormModal from '../SignupFormModal';
 
 function ProfileButton({user}) {
     const [showMenu, setShowMenu] = useState(false)
@@ -15,10 +17,10 @@ function ProfileButton({user}) {
 
     useEffect(() => {
         if (!showMenu) return;
-
+        
         const closeMenu = () => {
             setShowMenu(false);
-        };
+        }
 
         document.addEventListener('click', closeMenu);
 
@@ -33,17 +35,17 @@ function ProfileButton({user}) {
     }
 
     return (
-        <div>
-            <button onClick={openMenu}>
-                <i className='fa-solid fa-user-circle' />
+        <div className='profile-menu-main'>
+            <button onClick={() => setShowMenu(!showMenu)} className='profile-button'>
+                <i className='fa-solid fa-user-circle fa-2x' />
             </button>
 
             {showMenu && (
-                <ul>
-                    <li>{user.username}</li>
-                    <li>{user.email}</li>
+                <ul className='profile-menu-details'>
+                    <li className='greeting'>Hey <span className='italic-span'>{user.username}</span></li>
+                    {/* <li>{user.email}</li> */}
                     <li>
-                        <button onClick={logout}>Log Out</button>
+                        <button onClick={logout} className='logout-button'>Log Out</button>
                     </li>
                 </ul>
             )}

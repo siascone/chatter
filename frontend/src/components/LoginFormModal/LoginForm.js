@@ -10,6 +10,14 @@ function LoginForm () {
 
     const dispatch = useDispatch();
 
+    const demoLogin = (e) => {
+        e.preventDefault();
+        dispatch(sessionActions.login({
+            username: 'Demo-lition',
+            password: 'password'
+        }))
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors([]);
@@ -31,33 +39,30 @@ function LoginForm () {
     };
 
     return (
-        <div>
-            <h1>Log In</h1>
-            <form onSubmit={handleSubmit}>
+        <div className='session-form-container'>
+            <h1>Welcome Back</h1>
+            <form onSubmit={handleSubmit} className='login-form'>
                 <ul>
                     {errors.map((error) => <li key={error}>{error}</li>)}
                 </ul>
-
-                <label>Username:
-                    <input 
-                        type="text" 
-                        placeholder="Username"
-                        value={username} 
-                        onChange={e => setUsername(e.target.value)}
-                        required
-                    />
-                </label>
-                <label>Password:
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        value={password}
-                        onChange={e => setPassword(e.target.value)}
-                        required
-                    />
-                </label>
+                
+                <input 
+                    type="text" 
+                    placeholder="Username"
+                    value={username} 
+                    onChange={e => setUsername(e.target.value)}
+                    required
+                />
+                <input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                    required
+                />
 
                 <button type="submit">Log In</button>
+                <button onClick={demoLogin} className='demo-login'>Demo Login</button>
             </form>
         </div>
     );

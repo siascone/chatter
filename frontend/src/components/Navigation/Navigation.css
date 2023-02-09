@@ -1,10 +1,14 @@
+/* 8d6a9f c5cbd3 8cbcb9 dda448 bb342f */
+
 .nav-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
     /* height: 60px; */
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #333;
+    box-shadow: 0 2px 15px 5px #333;
+    background-color: #8d6a9f;
     /* padding: 10px; */
 
 }
@@ -13,6 +17,124 @@
     display: flex;
 }
 
+.session-button {
+    height: 26px;
+    border-radius: 3px;
+    border: 1px solid #333;
+    margin-left: 5px;
+    color: #333;
+    background-color: #dda448;
+}
+
 .home-link, .session-links {
     margin: 10px;
 }
+
+.home-link {
+    color: #dda448;
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+    text-shadow: 1px 1px 0 #333;
+}
+
+.profile-menu-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    background-color: #dda448;
+    height: 25.5px;
+    width: 25.5px;
+    border-radius: 50%;
+
+}
+
+.profile-button {
+    position: relative;
+    background: transparent;
+    border: none;
+    color: #333
+}
+
+.profile-button:hover {
+    cursor: pointer;
+}
+
+.italic-span {
+    font-weight: bold;
+    font-style: italic;
+}
+
+
+.profile-menu-details {
+    position: absolute;
+    top: 40px;
+    right: 15px;
+    border: 1px solid black;
+    background-color: #c5cbd3;
+    border-radius: 6px;
+    padding: 10px;
+}
+
+
+
+.logout-button {
+    width: 140px;
+    height: 30px;
+    margin: 10px 0 0 0;
+    border-radius: 6px;
+    border: 1px solid #333;
+    font-size: 16px;
+    background-color: #8cbcb9;
+}
+
+.session-form-container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.session-form-container > h1 {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 auto;
+    text-align: center;
+    padding: 10px;
+}
+
+.signup-form, .login-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.signup-form > input, .login-form > input {
+    width: 300px;
+    height: 40px;
+    margin: 10px;
+    border-radius: 6px;
+    border: 1px solid #333;
+    font-size: 16px;
+    padding-left: 10px;
+}
+
+.signup-form > button, .login-form > button {
+    width: 313px;
+    height: 40px;
+    margin: 10px;
+    border-radius: 6px;
+    border: 1px solid #333;
+    font-size: 16px;
+    background-color: #8cbcb9;
+}
+
+.signup-form > ul, .login-form > ul {
+    width: 313px;
+    margin: 10px;
+    
+}
+
+.demo-login {
+    background-color: #8d6a9f !important;
+}
+

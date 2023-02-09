@@ -28,7 +28,7 @@ function Navigation() {
 
     return (
         <div className='nav-bar'>
-            <NavLink exact to='/' className='home-link'>Chatter</NavLink>
+            <NavLink exact to='/' className='home-link'>CHATTER</NavLink>
             {sessionLinks}
         </div>
     )

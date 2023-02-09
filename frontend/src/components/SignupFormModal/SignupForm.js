@@ -11,6 +11,14 @@ function SignupForm () {
 
     const dispatch = useDispatch();
 
+    const demoLogin = (e) => {
+        e.preventDefault();
+        dispatch(sessionActions.login({
+            username: 'Demo-lition',
+            password: 'password'
+        }))
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -27,51 +35,51 @@ function SignupForm () {
                         data = await res.text(); // Will hit this case if, e.g., server is down
                     }
                     if (data?.errors) setErrors(data.errors);
-                    else if (data) setErrors([data]);
+                    else if (data) setErrors(data);
                     else setErrors([res.statusText]);
                 }
             });
     };
 
     return (
-        <div>
-            <h1>Sign Up</h1>
-            <form onSubmit={handleSubmit}>
+        <div className='session-form-container'>
+            <h1>Join the CHATTER; make some noise!</h1>
+            <form onSubmit={handleSubmit} className='signup-form'>
                 <ul>
-                    {errors.map((error, i) => <li key={i}>{error}</li>)}
+                    {
+                        errors.map((error, i) => {
+                            console.log(error)
+                            return <li key={i}>{error}</li>
+                        })
+                    }
                 </ul>
 
-                <label>Email:
-                    <input 
-                        type="text" 
-                        placeholder="Email"
-                        value={email} 
-                        onChange={e => setEmail(e.target.value)}
-                        required
-                    />
-                </label>
-
-                <label>Username:
-                    <input
-                        type="text"
-                        placeholder="Username"
-                        value={username}
-                        onChange={e => setUsername(e.target.value)}
-                        required
-                    />
-                </label>
-
-                <label>Password:
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        value={password}
-                        onChange={e => setPassword(e.target.value)}
-                        required
-                    />
-                </label>
+                <input 
+                    type="text" 
+                    placeholder="Email"
+                    value={email} 
+                    onChange={e => setEmail(e.target.value)}
+                    required
+                />
+            
+                <input
+                    type="text"
+                    placeholder="Username"
+                    value={username}
+                    onChange={e => setUsername(e.target.value)}
+                    required
+                />
+            
+                <input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                    required
+                />
 
                 <button type="submit">Log In</button>
+                <button onClick={demoLogin} className='demo-login'>Demo Login</button>
             </form>
         </div>
     );

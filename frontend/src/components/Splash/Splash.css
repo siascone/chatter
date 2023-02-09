@@ -1,0 +1,12 @@
+.splash-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.splash-main > p {
+    font-size: 20px;
+    font-weight: bold;
+}
