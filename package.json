@@ -1,5 +1,30 @@
 {
+<<<<<<< HEAD
   "dependencies": {
     "@rails/actioncable": "^7.0.4-2"
+=======
+  "name": "chatter",
+  "version": "1.0.0",
+  "description": "This README would normally document whatever steps are necessary to get the application up and running.",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "build": "npm install --prefix frontend && npm run build --prefix frontend"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/siascone/chatter.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/siascone/chatter/issues"
+  },
+  "homepage": "https://github.com/siascone/chatter#readme",
+  "engines": {
+    "node": "16.x"
+>>>>>>> main
   }
 }
