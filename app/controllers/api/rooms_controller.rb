@@ -7,7 +7,7 @@ class Api::RoomsController < ApplicationController
 
     def show
         @room = Room.includes(messages: [:author, :mentioned_users]).find(params[:id])
-
+        #  will add code here
     end
 
     def create
@@ -23,7 +23,7 @@ class Api::RoomsController < ApplicationController
     def destroy 
         @room = Room.find(params[:id])
         @room.destroy
-
+        # will add code here
         render json: nil, status: :ok
     end
 
