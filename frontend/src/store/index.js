@@ -1,7 +1,10 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
-import session from './session'
-
+import rooms from './rooms';
+import session from './session';
+import { messagesReducer } from './messages';
+import { mentionsReducer } from './mentions';
+import { usersReducer } from './users';
 let enhancer;
 
 if (process.env.NODE_ENV === 'production') {
@@ -14,7 +17,12 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 const rootReducer = combineReducers({
-    session
+    session,
+    rooms,
+    messages: messagesReducer,
+    mentions: mentionsReducer,
+    users: usersReducer
+
 });
 
 export const configureStore = (preloadedState) => {

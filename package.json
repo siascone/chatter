@@ -1,8 +1,4 @@
 {
-<<<<<<< HEAD
-  "dependencies": {
-    "@rails/actioncable": "^7.0.4-2"
-=======
   "name": "chatter",
   "version": "1.0.0",
   "description": "This README would normally document whatever steps are necessary to get the application up and running.",
@@ -25,6 +21,8 @@
   "homepage": "https://github.com/siascone/chatter#readme",
   "engines": {
     "node": "16.x"
->>>>>>> main
+  },
+  "dependencies": {
+    "@rails/actioncable": "^7.0.4-2"
   }
 }
