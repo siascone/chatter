@@ -48,7 +48,6 @@ function SignupForm () {
                 <ul>
                     {
                         errors.map((error, i) => {
-                            console.log(error)
                             return <li key={i}>{error}</li>
                         })
                     }
