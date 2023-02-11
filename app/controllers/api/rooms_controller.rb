@@ -12,7 +12,6 @@ class Api::RoomsController < ApplicationController
     end
 
     def create
-        debugger
         @room = Room.new(room_params)
 
         if @room.save
