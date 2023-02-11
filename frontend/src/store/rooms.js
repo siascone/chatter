@@ -7,6 +7,7 @@ const RECEIVE_ROOMS = 'rooms/RECEIVE_ROOMS';
 const REMOVE_ROOM = 'rooms/REMOVE_ROOM';
 
 export const receiveRoom = room => {
+    debugger
     return {
         type: RECEIVE_ROOM, 
         room
@@ -27,7 +28,7 @@ export const removeRoom = roomId => {
     }
 }
 
-export const fetchRooms = () => dispatch => {
+export const fetchRooms = () => async dispatch => {
     return csrfFetch('/api/rooms')
         .then(({rooms, users}) => {
             dispatch(receiveRooms(rooms))
@@ -35,7 +36,7 @@ export const fetchRooms = () => dispatch => {
         })
 }
 
-export const fetchRoom = roomId => dispatch => {
+export const fetchRoom = roomId => async dispatch => {
     return csrfFetch(`/api/rooms/${roomId}`)
         .then(({room, messages, users}) => {
             dispatch(receiveMessages(messages))
@@ -44,7 +45,27 @@ export const fetchRoom = roomId => dispatch => {
         })
 }
 
-export const destroyRoom = roomId => dispatch => {
+export const createRoom = room => async dispatch => {
+    const res = await csrfFetch('/api/rooms', {
+        method: 'POST',
+        body: JSON.stringify(room)
+    })
+
+    if (res.ok) {
+        const data = await res.json();
+        debugger
+        dispatch(receiveRoom(data))
+    }
+
+    // return csrfFetch('/api/rooms', {
+    //     method: 'POST',
+    //     body: JSON.stringify(room)
+    // }).then(room => dispatch(receiveRoom(room)))
+
+    return res
+}
+
+export const destroyRoom = roomId => async dispatch => {
     return csrfFetch(`/api/rooms/${roomId}`, {
         method: 'DELETE'
     }).then(() => dispatch(removeRoom(roomId)))
@@ -53,6 +74,7 @@ export const destroyRoom = roomId => dispatch => {
 export const roomsReducer = (state ={}, action) => {
     switch(action.type) {
         case RECEIVE_ROOM:
+            debugger
             const { room } = action;
             return { ...state, [room.id]: room} 
         case RECEIVE_ROOMS:

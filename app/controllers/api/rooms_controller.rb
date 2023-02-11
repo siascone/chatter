@@ -1,5 +1,6 @@
 class Api::RoomsController < ApplicationController
-    wrap_parameters include: Message.attribute_names
+     wrap_parameters include: Room.attribute_names + ['ownerId', 'name']
+    before_action :require_logged_in, except: [:index]
 
     def index 
         @rooms = Room.includes(:owner).all
@@ -11,6 +12,7 @@ class Api::RoomsController < ApplicationController
     end
 
     def create
+        debugger
         @room = Room.new(room_params)
 
         if @room.save

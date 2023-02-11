@@ -10,7 +10,7 @@ import {
     destroyMessage } from '../../store/messages';
 import { fetchRoom } from '../../store/rooms';
 import { receiveUser } from '../../store/users';
-import Message from './Message';
+import Message from '../Message/index';
 
 function Room () {
     const dispatch = useDispatch();
@@ -63,7 +63,97 @@ function Room () {
         activeMessageRef.current.scrollIntoView();
     }
 
-    //TO DO setReaction
+    const setReaction = (id, reaction) => {
+        setUsersInRoom(prevUsersInRoom => ({ ...prevUsersInRoom, [id]: {...prevUsersInRoom[id], reaction } }))
+    }
+
+    const handleSubmit = e => {
+        e.preventDefault();
+        createMeassge({ body, roomId, authorId: currentUserId })
+            .then(({ message, user }) => {
+                dispatch(receiveMessage(message))
+                dispatch(receiveUser(user))
+                setBody('')
+            })
+    }
+
+    const handleDelete = messageId => {
+        destroyMessage(messageId)
+            .then(() => {
+                removeMessage(messageId)
+            })
+    }
+
+    const generateReactions = (...reactions) => {
+        return reactions.map(reaction => (
+            <span 
+                key={reaction}
+                className="reaction"
+                onClick={() => setReaction(currentUserId, reaction)}
+            >
+                {reaction}
+            </span>
+        ))
+    }
+
+    return (
+        <div>
+            <section className='room home-section'>
+                <h1>{room?.name}</h1>
+
+                <ul ref={messageUlRef}>
+                    {messages.map(message => (
+                        <li
+                            key={message.id}
+                            ref={activeMessageId === message.id ? activeMessageRef : null}
+                            tabIndex={-1}
+                        >
+                            <Message {...message} />
+                            {message.authorId === currentUserId && (
+                                <button 
+                                    className='btn-delete'
+                                    onClick={() => handleDelete(message.id)}
+                                >
+                                    x
+                                </button>
+                            )}
+                        </li>
+                    ))}
+                </ul>
+                <form onSubmit={handleSubmit}>
+                    <textarea
+                        rows={body.split('\n').length}
+                        onChange={e => setBody(e.target.value)}
+                        onKeyDown={e => {
+                            if(e.code === 'Enter' && !e.shiftKey) {
+                                handleSubmit(e)
+                            }
+                        }}
+                        value={body}
+                    />
+                    <div className='message-controls'>
+                        <div>
+                            {generateReactions('👍', '❤️', '🔥', '😡')}
+                        </div>
+                        <button className='btn-primary' disabled={!body}>
+                            Send Message
+                        </button>
+                    </div>
+                </form>
+            </section>
+            <section className='online-users home-section'>
+                <h2>In Room</h2>
+                <ul>
+                    {usersInRoomArray.map(({ id, username, reaction }) => (
+                        <li key={id} className={currentUserId === id ? 'current' : ''}>
+                            <span className='reaction'>{reaction}</span>
+                            <span>{username}</span>
+                        </li>
+                    ))}
+                </ul>
+            </section>
+        </div>
+    )
 }
 
 export default Room;
