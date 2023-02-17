@@ -46,7 +46,7 @@ export const readMention = mentionId => dispatch => {
     return csrfFetch(`/api/mentions/${mentionId}/read`, {
         method: 'PATCH'
     }).then(() => dispatch({
-            type: RECEIVE_MENTION,
+            type: READ_MENTION,
             mentionId
         })
     ) 

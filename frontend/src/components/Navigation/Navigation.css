@@ -10,6 +10,8 @@
     box-shadow: 0 2px 15px 5px #333;
     background-color: #8d6a9f;
     /* padding: 10px; */
+    /* position: fixed; */
+    z-index: 10;
 
 }
 

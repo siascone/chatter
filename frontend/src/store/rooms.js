@@ -35,7 +35,7 @@ export const fetchRooms = () => async dispatch => {
         dispatch(receiveRooms(data.rooms))
         dispatch(receiveUsers(data.users))
     }
-    // return csrfFetch('/api/rooms')
+   
     //     .then(({rooms, users}) => {
     //         dispatch(receiveRooms(rooms))
     //         dispatch(receiveUsers(users))
@@ -44,13 +44,22 @@ export const fetchRooms = () => async dispatch => {
 }
 
 export const fetchRoom = roomId => async dispatch => {
-    return csrfFetch(`/api/rooms/${roomId}`)
-        .then(({room, messages, users}) => {
-            debugger
-            dispatch(receiveMessages(messages))
-            dispatch(receiveRoom(room))
-            dispatch(receiveUsers(users))
-        })
+    const res = await csrfFetch(`/api/rooms/${roomId}`)
+
+    
+    if (res.ok) {
+        const data = await res.json()
+        dispatch(receiveMessages(data.messages))
+        dispatch(receiveRoom(roomId))
+        dispatch(receiveUsers(data.users))
+    }
+
+    return res
+    // .then(({room, messages, users}) => {
+    //     dispatch(receiveMessages(messages))
+    //     dispatch(receiveRoom(room))
+    //     dispatch(receiveUsers(users))
+    // })
 }
 
 export const createRoom = room => async dispatch => {

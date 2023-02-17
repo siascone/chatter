@@ -8,6 +8,7 @@ import { receiveMessage } from '../../store/messages'
 import { receiveUser } from '../../store/users';
 import Message from '../Message/index.js'
 import Dropdown from '../Dropdown/index.js'
+import consumer from '../../consumer';
 
 function Mentions() {
     
@@ -19,7 +20,24 @@ function Mentions() {
 
     useEffect(() => {
         dispatch(fetchMentions())
-        // will add code here 
+        
+        const subscription = consumer.subscriptions.create(
+            { channel: 'MentionsChannel' },
+            {
+                received: (({ type, mention, message, user }) => {
+                    switch(type) {
+                        case 'RECEIVE_MENTION':
+                            dispatch(receiveMention(mention))
+                            dispatch(receiveMessage(message))
+                            dispatch(receiveUser(user))
+                        default:
+                            console.log('Unhandled broadcast: ', type)
+                    }
+                })
+            }
+        )
+
+        return () => subscription?.unsubscribe();
     }, [dispatch]);
 
     return (

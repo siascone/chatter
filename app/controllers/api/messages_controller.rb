@@ -7,10 +7,17 @@ class Api::MessagesController < ApplicationController
         @message = Message.new(message_params)
 
         if @message.save
-            # will add code here
             RoomsChannel.broadcast_to @message.room,
                 type: 'RECEIVE_MESSAGE',
                 **form_template('api/messages/show', message: @message)
+
+            @message.mentions.includes(:user, message: [:room]).each do |mention|
+                
+                MentionsChannel.broadcast_to mention.user,
+                    type: 'RECEIVE_MENTION',
+                    **form_template('api/mentions/show', mention: mention)
+            end
+
             render json: nil, status: :ok
         else
             render json: @message.errors.full_messages, status: 422

@@ -46,7 +46,6 @@ function Room () {
     }, [messages, roomId, history])
 
     useEffect(() => {
-        debugger
         dispatch(fetchRoom(roomId)).then(() => {
             if (activeMessageRef.current) {
                 scrollToMessage();

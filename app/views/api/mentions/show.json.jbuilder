@@ -1,5 +1,5 @@
 json.mention do 
-    json.partial! 'api/mentions/mention', mention: mmention
+    json.partial! 'api/mentions/mention', mention: mention
 end
 
 json.message do 
