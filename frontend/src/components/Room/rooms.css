@@ -1,0 +1,39 @@
+/* 8d6a9f c5cbd3 8cbcb9 dda448 bb342f */
+
+.rooms-index {
+    width: 22%;
+    height: 100vh;
+    background-color: #c5cbd3;
+    padding: 10px;
+}
+
+
+.rooms-index-list > li {
+    margin: 5px 0;
+}
+
+.new-room-form {
+    width: 100%;
+    margin: 5px 0;
+}
+
+
+.room-main {
+    width: 80%;
+    height: 100vh;
+}
+
+.room-main > section {
+    margin: 10px;
+}
+
+.new-room-form > input {
+    width: 75%;
+    /* margin-right: 19px; */
+}
+
+/* .message-send-form  {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+} */

@@ -1,7 +1,3 @@
-json.room do 
-    json.partial! 'api/rooms/room', room: @room
-end
-
 @room.messages.each do |message| 
     json.messages do 
         json.set! message.id do 
@@ -15,3 +11,5 @@ end
         end
     end
 end
+
+# will add code here

@@ -13,8 +13,14 @@
 
 }
 
-.session-links {
+.nav-right-logged-out {
     display: flex;
+    align-items: center;
+}
+
+.nav-right-logged-in {
+    display: flex;
+    align-items: center;
 }
 
 .session-button {
@@ -26,7 +32,7 @@
     background-color: #dda448;
 }
 
-.home-link, .session-links {
+.home-link, .nav-right-logged-out {
     margin: 10px;
 }
 
@@ -138,3 +144,7 @@
     background-color: #8d6a9f !important;
 }
 
+/* .nav-left {
+    display: flex;
+    align-items: center;
+} */

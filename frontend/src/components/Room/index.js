@@ -11,6 +11,8 @@ import {
 import { fetchRoom } from '../../store/rooms';
 import { receiveUser } from '../../store/users';
 import Message from '../Message/index';
+import consumer from '../../consumer';
+import './rooms.css'
 
 function Room () {
     const dispatch = useDispatch();
@@ -44,6 +46,7 @@ function Room () {
     }, [messages, roomId, history])
 
     useEffect(() => {
+        debugger
         dispatch(fetchRoom(roomId)).then(() => {
             if (activeMessageRef.current) {
                 scrollToMessage();
@@ -52,6 +55,27 @@ function Room () {
             }
             prevRoom.current = roomId;
         })
+
+        const subscription = consumer.subscriptions.create(
+            { channel: 'RoomsChannel', id: roomId },
+            {
+                received: ({ type, message, user, id }) => {
+                    switch (type) {
+                        case 'RECEIVE_MESSAGE':
+                            dispatch(receiveMessage(message))
+                            dispatch(receiveUser(user))
+                            break
+                        case 'DESTROY_MESSAGE':
+                            dispatch(removeMessage(id))
+                            break
+                        default:
+                            console.log('Unhandled broadcast: ', type)
+                    }
+                }
+            }
+        )
+
+        return () => subscription?.unsubscribe();
     }, [roomId, dispatch]);
 
     const scrollToBottom = () => {
@@ -70,18 +94,13 @@ function Room () {
     const handleSubmit = e => {
         e.preventDefault();
         createMeassge({ body, roomId, authorId: currentUserId })
-            .then(({ message, user }) => {
-                dispatch(receiveMessage(message))
-                dispatch(receiveUser(user))
+            .then(() => {
                 setBody('')
             })
     }
 
     const handleDelete = messageId => {
         destroyMessage(messageId)
-            .then(() => {
-                removeMessage(messageId)
-            })
     }
 
     const generateReactions = (...reactions) => {
@@ -97,9 +116,9 @@ function Room () {
     }
 
     return (
-        <div>
-            <section className='room home-section'>
-                <h1>{room?.name}</h1>
+        <div className='room-main'>
+            <section className='room-section'>
+                <h1>Room: {room?.name}</h1>
 
                 <ul ref={messageUlRef}>
                     {messages.map(message => (
@@ -120,9 +139,10 @@ function Room () {
                         </li>
                     ))}
                 </ul>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} className='message-send-form'>
                     <textarea
                         rows={body.split('\n').length}
+                        placeholder={`Message #${room.name}`}
                         onChange={e => setBody(e.target.value)}
                         onKeyDown={e => {
                             if(e.code === 'Enter' && !e.shiftKey) {
@@ -141,7 +161,7 @@ function Room () {
                     </div>
                 </form>
             </section>
-            <section className='online-users home-section'>
+            <section className='online-users-section'>
                 <h2>In Room</h2>
                 <ul>
                     {usersInRoomArray.map(({ id, username, reaction }) => (

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 
 import { createRoom, destroyRoom, fetchRooms } from '../../store/rooms';
 
@@ -8,7 +8,15 @@ function RoomsIndex() {
 
     const [name, setName] = useState('');
 
-    const currentUserId = useSelector(state => state.session.user.id)
+    const history = useHistory();
+
+    const currentUserId = useSelector(state => {
+        let id = null;
+        if (state.session.user) {
+            id = state.session.user.id
+        }
+        return id;
+    })
     const rooms = useSelector(state => Object.values(state.rooms));
 
     const dispatch = useDispatch();
@@ -23,14 +31,31 @@ function RoomsIndex() {
         setName('');
     }
 
+    if (!currentUserId) {
+        history.push('/')
+    }
+
     return (
-        <section className='rooms-index home-section'>
+        <section className='rooms-index'>
             <h1>Rooms</h1>
-            <ul>
+            {!!currentUserId &&
+                <form onSubmit={createNewRoom} className='new-room-form'>
+                    <input
+                        type="text"
+                        placeholder='add a room'
+                        value={name}
+                        onChange={e => setName(e.target.value)}
+                    />
+                    <button className='btn-primary' disabled={!name}>
+                        +
+                    </button>
+                </form>
+            }
+            <ul className='rooms-index-list'>
                 {rooms.map(({ id, name, ownerId }) => (
                     <li key={id}>
-                        <NavLink to={currentUserId ? `rooms/${id}` : '/'}>
-                            {name}
+                        <NavLink to={currentUserId ? `/rooms/${id}` : '/rooms'}>
+                            #{name}
                         </NavLink>
                         {ownerId === currentUserId && (
                             <button 
@@ -43,18 +68,7 @@ function RoomsIndex() {
                     </li>
                 ))}
             </ul>
-            {!!currentUserId && 
-                <form onSubmit={createNewRoom}>
-                    <input 
-                        type="text" 
-                        value={name}
-                        onChange={e => setName(e.target.value)}
-                    />
-                    <button className='btn-primary' disabled={!name}>
-                        Create Room
-                    </button>
-                </form>
-            }
+            
         </section>
     )
 

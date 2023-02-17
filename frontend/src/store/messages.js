@@ -13,14 +13,14 @@ export const receiveMessage = message => {
 
 export const receiveMessages = messages => {
     return {
-        type: RECEIVE_MESSAGE,
+        type: RECEIVE_MESSAGES,
         messages
     }
 }
 
 export const removeMessage = messageId => {
     return {
-        type: RECEIVE_MESSAGE,
+        type: REMOVE_MESSAGE,
         messageId
     }
 }
@@ -38,7 +38,7 @@ export const getMessages = roomId => state => {
 export const createMeassge = message => {
     return csrfFetch('/api/messages', {
         method: 'POST',
-        data: { message }
+        body: JSON.stringify(message)
     })
 }
 

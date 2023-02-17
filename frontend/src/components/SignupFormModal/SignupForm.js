@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import * as sessionActions from '../../store/session'
 import './SignupForm.css'
 
@@ -9,6 +10,8 @@ function SignupForm () {
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState([]);
 
+    const history = useHistory();
+
     const dispatch = useDispatch();
 
     const demoLogin = (e) => {
@@ -16,7 +19,9 @@ function SignupForm () {
         dispatch(sessionActions.login({
             username: 'Demo-lition',
             password: 'password'
-        }))
+        })).then(() => {
+            history.push('/rooms')
+        })
     }
 
     const handleSubmit = (e) => {
@@ -25,6 +30,9 @@ function SignupForm () {
         setErrors([]);
 
         return dispatch(sessionActions.signup({ email, password, username }))
+            .then(() => {
+                history.push('/rooms')
+            })
             .catch(async (res) => {
                 // if (!res.ok) {
                     let data;
