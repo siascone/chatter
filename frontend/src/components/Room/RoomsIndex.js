@@ -55,7 +55,7 @@ function RoomsIndex() {
                 {rooms.map(({ id, name, ownerId }) => (
                     <li key={id}>
                         <NavLink to={currentUserId ? `/rooms/${id}` : '/rooms'}>
-                            #{name}
+                            {`#${name}`}
                         </NavLink>
                         {ownerId === currentUserId && (
                             <button 
