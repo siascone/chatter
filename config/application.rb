@@ -31,7 +31,7 @@ module Chatter
 
     config.railties_order = [:all, :main_app]
 
-    config.autoloader = :classic
+    # config.autoloader = :classic
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
