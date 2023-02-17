@@ -16,6 +16,8 @@ class User < ApplicationRecord
         presence: true,
         uniqueness: true
 
+    has_many :mentions
+
 
     before_validation :ensure_session_token
 

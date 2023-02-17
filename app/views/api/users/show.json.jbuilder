@@ -1,3 +1,3 @@
     json.user do
-        json.extract! @user, :id, :username, :email, :created_at
+        json.partial! 'api/users/user', user: @user
     end

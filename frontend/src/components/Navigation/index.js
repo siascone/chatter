@@ -7,28 +7,43 @@ import SignupFormModal from '../SignupFormModal';
 import ProfileButton from './ProfileButton';
 
 import './Navigation.css'
+import Mentions from '../Mentions/index.js';
 
 function Navigation() {
-    const sessionUser = useSelector(state => state.session.user)
+    const currentUser = useSelector(state => state.session.user)
 
     let sessionLinks;
+    let mentions = null;
 
-    if (sessionUser) {
+    if (currentUser) {
+        mentions = <>
+            <Mentions />
+        </>
+    }
+
+    if (currentUser) {
         sessionLinks = (
-            <ProfileButton user={sessionUser} />
+            <div className='nav-right-logged-in'>
+                {mentions}
+                <ProfileButton user={currentUser} />
+            </div>
         );
     } else {
         sessionLinks = (
-            <div className='session-links'>
+            <div className='nav-right-logged-out'>
                 <LoginFormModal />
                 <SignupFormModal />
             </div>
         );
     };
 
+
+
     return (
         <div className='nav-bar'>
-            <NavLink exact to='/' className='home-link'>CHATTER</NavLink>
+            <div className='nav-left'>
+                <NavLink exact to='/' className='home-link'>CHATTER</NavLink>
+            </div>
             {sessionLinks}
         </div>
     )

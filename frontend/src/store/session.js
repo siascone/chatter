@@ -1,14 +1,18 @@
 import { csrfFetch } from "./csrf.js";
+import { endSession } from "./users.js";
 
-const SET_CURRENT_USER = 'session/setCurrentUser';
-const REMOVE_CURRENT_USER = 'session/removeCurrentUser';
+export const SET_CURRENT_USER = 'session/setCurrentUser';
+export const REMOVE_CURRENT_USER = 'session/removeCurrentUser';
 
-const setCurrentUser = (user) => ({
-    type: SET_CURRENT_USER,
-    payload: user
-});
+export const setCurrentUser = (user) => {
+    return {
+        type: SET_CURRENT_USER,
+        user: user,
+        userId: user.id
+    }
+};
 
-const removeCurrentUser = () => ({
+export const removeCurrentUser = () => ({
     type: REMOVE_CURRENT_USER
 });
 
@@ -17,7 +21,7 @@ const storeCSRFToken = response => {
     if (csrfToken) sessionStorage.setItem("X-CSRF-Token", csrfToken);
 }
 
-const storeCurrentUser = user => {
+export const storeCurrentUser = user => {
     if (user) sessionStorage.setItem("currentUser", JSON.stringify(user));
     else sessionStorage.removeItem("currentUser");
 }
@@ -33,7 +37,7 @@ export const login = ({ username, password }) => async dispatch => {
         storeCurrentUser(data.user);
         dispatch(setCurrentUser(data.user));
     }
-
+    
     return response;
 };
 
@@ -42,7 +46,7 @@ export const restoreSession = () => async dispatch => {
     storeCSRFToken(response);
     const data = await response.json();
     storeCurrentUser(data.user);
-    dispatch(setCurrentUser(data.user));
+    if (data.user) dispatch(setCurrentUser(data.user));
     return response;
 };
 
@@ -56,6 +60,7 @@ export const signup = (user) => async (dispatch) => {
             password
         })
     });
+
     if (response.ok) {
         const data = await response.json();
         storeCurrentUser(data.user);
@@ -65,12 +70,19 @@ export const signup = (user) => async (dispatch) => {
     return response;
 };
 
-export const logout = () => async (dispatch) => {
+export const logout = () => async (dispatch, getState) => {
     const response = await csrfFetch("/api/session", {
         method: "DELETE"
-    });
-    storeCurrentUser(null);
-    dispatch(removeCurrentUser());
+    }).then(() => {
+        storeCurrentUser(null);
+        dispatch(removeCurrentUser());
+
+    }).catch(error => {
+        if (error.status === 401) {
+            return endSession(getState().session.user.id, dispatch)
+        }
+    })
+
     return response;
 };
 
@@ -81,7 +93,7 @@ const initialState = {
 const sessionReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_CURRENT_USER:
-            return { ...state, user: action.payload };
+            return { ...state, user: action.user };
         case REMOVE_CURRENT_USER:
             return { ...state, user: null };
         default:

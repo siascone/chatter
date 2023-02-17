@@ -21,5 +21,8 @@
   "homepage": "https://github.com/siascone/chatter#readme",
   "engines": {
     "node": "16.x"
+  },
+  "dependencies": {
+    "@rails/actioncable": "^7.0.4-2"
   }
 }
