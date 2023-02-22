@@ -50,7 +50,7 @@ export const fetchRoom = roomId => async dispatch => {
     if (res.ok) {
         const data = await res.json()
         dispatch(receiveMessages(data.messages))
-        dispatch(receiveRoom(roomId))
+        dispatch(receiveRoom(data.room))
         dispatch(receiveUsers(data.users))
     }
 
