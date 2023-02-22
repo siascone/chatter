@@ -8,6 +8,10 @@ module ApplicationCable
       self.current_user = find_verified_user
     end
 
+    def rooms
+      @rooms ||= []
+    end
+
     private
 
     def find_verified_user

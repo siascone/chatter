@@ -16,4 +16,10 @@ json.room do
     json.partial! 'api/rooms/room', room: @room
 end
 
-# will add code here
+json.online_users do 
+    @online_users.each do |user|
+        json.set! user.id do 
+            json.partial! 'api/users/user', user: user
+        end
+    end
+end

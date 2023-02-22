@@ -51,6 +51,7 @@ export const fetchRoom = roomId => async dispatch => {
         dispatch(receiveMessages(data.messages))
         dispatch(receiveRoom(data.room))
         dispatch(receiveUsers(data.users))
+        return data.onlineUsers;
     }
 
     return res

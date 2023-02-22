@@ -8,7 +8,7 @@ class Api::RoomsController < ApplicationController
 
     def show
         @room = Room.includes(messages: [:author, :mentioned_users]).find(params[:id])
-        #  will add code here
+        @online_users = RoomsChannel.online_users(@room) << current_user
     end
 
     def create
