@@ -2,7 +2,7 @@ module ApplicationCable
   class Connection < ActionCable::Connection::Base
     # will add code here
 
-    identified_by :current_user
+    identified_by :current_user, :rooms
 
     def connect 
       self.current_user = find_verified_user
