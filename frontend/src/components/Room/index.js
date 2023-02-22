@@ -46,7 +46,8 @@ function Room () {
     }, [messages, roomId, history])
 
     useEffect(() => {
-        dispatch(fetchRoom(roomId)).then(() => {
+        dispatch(fetchRoom(roomId)).then((currentUsersInRoom = {}) => {
+            setUsersInRoom(currentUsersInRoom);
             if (activeMessageRef.current) {
                 scrollToMessage();
             } else {
@@ -67,8 +68,18 @@ function Room () {
                         case 'DESTROY_MESSAGE':
                             dispatch(removeMessage(id))
                             break
+                        case 'RECEIVE_USER':
+                            setUsersInRoom(prevUsersInRoom => ({ ...prevUsersInRoom, [user.id]: user }))
+                            break;
+                        case 'REMOVE_USER':
+                            setUsersInRoom(prevUsersInRoom => {
+                                const { [id]: _removed, ...remainingUsers } = prevUsersInRoom
+                                return remainingUsers
+                            })
+                            break;
                         default:
                             console.log('Unhandled broadcast: ', type)
+                            break;
                     }
                 }
             }
