@@ -46,7 +46,6 @@ export const fetchRooms = () => async dispatch => {
 export const fetchRoom = roomId => async dispatch => {
     const res = await csrfFetch(`/api/rooms/${roomId}`)
 
-    
     if (res.ok) {
         const data = await res.json()
         dispatch(receiveMessages(data.messages))
