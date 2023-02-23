@@ -81,6 +81,7 @@ GEM
       i18n (>= 1.8.11, < 2)
     globalid (1.1.0)
       activesupport (>= 5.0)
+    hiredis (0.6.3)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     io-console (0.6.0)
@@ -171,11 +172,12 @@ DEPENDENCIES
   bootsnap
   debug
   faker
+  hiredis
   jbuilder
   pg (~> 1.1)
   puma (~> 5.0)
   rails (~> 7.0.4, >= 7.0.4.2)
-  redis (~> 4.0)
+  redis
   tzinfo-data
 
 RUBY VERSION
