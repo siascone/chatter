@@ -35,6 +35,8 @@ function Room () {
     const activeMessageId = parseInt(history.location.hash.slice(1));
     const usersInRoomArray = Object.values(usersInRoom);
 
+    const react = useRef(null);
+
     useEffect(() => {
         if (roomId === prevRoom.current && numMessages.current < messages.length) {
             if (history.location.hash) {
@@ -85,6 +87,8 @@ function Room () {
             }
         )
 
+        react.current = reaction => subscription?.perform('react', { reaction });
+
         return () => subscription?.unsubscribe();
     }, [roomId, dispatch]);
 
@@ -118,7 +122,8 @@ function Room () {
             <span 
                 key={reaction}
                 className="reaction"
-                onClick={() => setReaction(currentUserId, reaction)}
+                // onClick={() => setReaction(currentUserId, reaction)}
+                onClick={() => react.current(reaction)}
             >
                 {reaction}
             </span>
