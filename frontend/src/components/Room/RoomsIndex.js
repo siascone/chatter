@@ -37,7 +37,7 @@ function RoomsIndex() {
 
     return (
         <section className='rooms-index'>
-            <h1>Rooms</h1>
+            <h1 className='rooms-index-heading'>Rooms</h1>
             {!!currentUserId &&
                 <form onSubmit={createNewRoom} className='new-room-form'>
                     <input
@@ -55,16 +55,16 @@ function RoomsIndex() {
                 {rooms.map(({ id, name, ownerId }) => (
                     <li key={id}>
                         <NavLink to={currentUserId ? `/rooms/${id}` : '/rooms'}>
-                            {`#${name}`}
+                            {`# ${name}`}
                         </NavLink>
-                        {ownerId === currentUserId && (
+                        {/* {ownerId === currentUserId && (
                             <button 
                                 className="btn-delete"
                                 onClick={() => dispatch(destroyRoom(id))}
                             >
                                 x
                             </button>
-                        )}
+                        )} */}
                     </li>
                 ))}
             </ul>

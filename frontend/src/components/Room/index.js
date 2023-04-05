@@ -141,7 +141,7 @@ function Room () {
     return (
         <div className='room-main'>
             <section className='room-section'>
-                <h1>Room: {room?.name}</h1>
+                <h1 className='room-heading'># {room?.name}</h1>
 
                 <ul ref={messageUlRef}>
                     {messages.map(message => (

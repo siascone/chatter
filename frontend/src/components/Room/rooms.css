@@ -1,16 +1,23 @@
 /* 8d6a9f c5cbd3 8cbcb9 dda448 bb342f */
 
 .rooms-index {
-    width: 22%;
+    width: 220px;
     max-height: 100%;
     overflow-y: auto;
-    background-color: #c5cbd3;
-    padding: 10px;
+    /* background-color: #c5cbd3; */
+    /* background-color: #252425; */
+    /* padding: 10px; */
+    color: #FFFFFFB3;
+    border: 1px solid rgb(49, 52, 55);
 }
 
 
 .rooms-index-list > li {
     margin: 5px 0;
+}
+.rooms-index-list > li > a {
+    color: #FFFFFFB3;
+    text-decoration: none;
 }
 
 .new-room-form {
@@ -20,13 +27,13 @@
 
 
 .room-main {
-    width: 80%;
+    width: calc(100% - 220px);
     max-height: 100%;
     overflow-y: auto;
 }
 
 .room-main > section {
-    margin: 10px;
+    /* margin: 10px; */
 }
 
 .new-room-form > input {
@@ -39,3 +46,22 @@
     bottom: 10px;
     width: 100%;
 } */
+
+.room-heading {
+    /* height: 40px; */
+    padding: 10px;
+    font-size: 24px;
+    color: #D1D2D3;
+    border: 1px solid rgb(49, 52, 55);
+    border-left: none;
+}
+
+.rooms-index-heading {
+    /* height: 40px; */
+    padding: 10px;
+    font-size: 24px;
+    color: #FFFFFF;
+    /* text-align: center; */
+    /* align-content: center; */
+    /* align-items: center; */
+}
