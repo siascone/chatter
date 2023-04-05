@@ -36,6 +36,7 @@ function Room () {
     const usersInRoomArray = Object.values(usersInRoom);
 
     const react = useRef(null);
+    const reactionTimeouts = useRef({});
 
     useEffect(() => {
         if (roomId === prevRoom.current && numMessages.current < messages.length) {
@@ -61,7 +62,7 @@ function Room () {
         const subscription = consumer.subscriptions.create(
             { channel: 'RoomsChannel', id: roomId },
             {
-                received: ({ type, message, user, id }) => {
+                received: ({ type, message, user, id, reaction }) => {
                     switch (type) {
                         case 'RECEIVE_MESSAGE':
                             dispatch(receiveMessage(message))
@@ -78,6 +79,13 @@ function Room () {
                                 const { [id]: _removed, ...remainingUsers } = prevUsersInRoom
                                 return remainingUsers
                             })
+                            break;
+                        case 'RECEIVE_REACTION':
+                            window.clearTimeout(reactionTimeouts.current[id]);
+                            setReaction(id, reaction);
+                            reactionTimeouts.current[id] = window.setTimeout(() => {
+                                setReaction(id, null);
+                            }, 4000);
                             break;
                         default:
                             console.log('Unhandled broadcast: ', type)

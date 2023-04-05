@@ -22,4 +22,11 @@ class RoomsChannel < ApplicationCable::Channel
             connection.rooms.include?(room) && connection.current_user
         end.uniq
     end
+
+    def react(reaction)
+        self.class.broadcast_to @room,
+            type: 'RECEIVE_REACTION',
+            id: current_user.id,
+            **reaction
+    end
 end
