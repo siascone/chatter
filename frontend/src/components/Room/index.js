@@ -39,11 +39,13 @@ function Room () {
     const reactionTimeouts = useRef({});
 
     useEffect(() => {
+        // debugger
         if (roomId === prevRoom.current && numMessages.current < messages.length) {
             if (history.location.hash) {
+                debugger
                 history.push(history.location.pathname);
-                scrollToBottom();
             }
+            scrollToBottom();
         }
         numMessages.current = messages.length;
     }, [messages, roomId, history])
@@ -142,49 +144,53 @@ function Room () {
         <div className='room-main'>
             <section className='room-section'>
                 <h1 className='room-heading'># {room?.name}</h1>
-
-                <ul ref={messageUlRef}>
-                    {messages.map(message => (
-                        <li
-                            key={message.id}
-                            ref={activeMessageId === message.id ? activeMessageRef : null}
-                            tabIndex={-1}
-                        >
-                            <Message {...message} />
-                            {message.authorId === currentUserId && (
-                                <button 
-                                    className='btn-delete'
-                                    onClick={() => handleDelete(message.id)}
-                                >
-                                    x
-                                </button>
-                            )}
-                        </li>
-                    ))}
-                </ul>
-                <form onSubmit={handleSubmit} className='message-send-form'>
-                    <textarea
-                        rows={body.split('\n').length}
-                        placeholder={`Message #${room.name}`}
-                        onChange={e => setBody(e.target.value)}
-                        onKeyDown={e => {
-                            if(e.code === 'Enter' && !e.shiftKey) {
-                                handleSubmit(e)
-                            }
-                        }}
-                        value={body}
-                    />
-                    <div className='message-controls'>
-                        <div>
-                            {generateReactions('👍', '❤️', '🔥', '😡')}
+                <div className='room-messages'>
+                    <ul ref={messageUlRef}>
+                        {messages.map(message => (
+                            <li
+                                key={message.id}
+                                ref={activeMessageId === message.id ? activeMessageRef : null}
+                                tabIndex={-1}
+                            >
+                                <Message {...message} />
+                                {/* {message.authorId === currentUserId && (
+                                    <button 
+                                        className='btn-delete'
+                                        onClick={() => handleDelete(message.id)}
+                                    >
+                                        x
+                                    </button>
+                                )} */}
+                            </li>
+                        ))}
+                    </ul>
+                    <form onSubmit={handleSubmit} className='message-send-form'>
+                        <input
+                            type='text'
+                            rows={body.split('\n').length}
+                            placeholder={`Message #${room.name}`}
+                            onChange={e => setBody(e.target.value)}
+                            onKeyDown={e => {
+                                if(e.code === 'Enter' && !e.shiftKey) {
+                                    handleSubmit(e)
+                                }
+                            }}
+                            value={body}
+                        />
+                        <div className='message-controls'>
+                            {/* <div>
+                                {generateReactions('👍', '❤️', '🔥', '😡')}
+                            </div> */}
+                            <button className='btn-primary' disabled={!body}>
+                                Send Message
+                            </button>
                         </div>
-                        <button className='btn-primary' disabled={!body}>
-                            Send Message
-                        </button>
-                    </div>
-                </form>
+                    </form>
+                    
+                </div>
+
             </section>
-            <section className='online-users-section'>
+            {/* <section className='online-users-section'>
                 <h2>In Room</h2>
                 <ul>
                     {usersInRoomArray.map(({ id, username, reaction }) => (
@@ -194,7 +200,7 @@ function Room () {
                         </li>
                     ))}
                 </ul>
-            </section>
+            </section> */}
         </div>
     )
 }

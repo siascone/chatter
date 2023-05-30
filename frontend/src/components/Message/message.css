@@ -1,0 +1,12 @@
+.message {
+        margin: 10px 10px 10px 0px;
+        display: flex;
+}
+
+.user-image {
+    height: 36px;
+    width: 36px;
+    margin-right: 5px;
+    border-radius: 6px;
+    object-fit: cover;
+}

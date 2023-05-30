@@ -17,7 +17,7 @@ function Navigation() {
 
     if (currentUser) {
         mentions = <>
-            <Mentions />
+            {/* <Mentions /> */}
         </>
     }
 

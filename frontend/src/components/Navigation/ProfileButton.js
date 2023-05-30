@@ -7,13 +7,15 @@ import * as sessionActions from '../../store/session';
 
 function ProfileButton({user}) {
     const [showMenu, setShowMenu] = useState(false)
+    const [userImage, setUserImage] = useState('https://www.tenforums.com/geek/gars/images/2/types/thumb_15951118880user.png')
 
     const dispatch = useDispatch();
 
-    // const openMenu = () => {
-    //     if (showMenu) return;
-    //     setShowMenu(true);
-    // }
+    useEffect(() => {
+        if (user.username === 'Demo-lition') {
+            setUserImage("https://www.slashfilm.com/img/gallery/writer-daniel-waters-favorite-demolition-man-joke-never-made-it-into-the-movie/intro-1676959970.jpg")
+        }
+    },[])
 
     useEffect(() => {
         if (!showMenu) return;
@@ -37,16 +39,19 @@ function ProfileButton({user}) {
     return (
         <div className='profile-menu-main'>
             <button onClick={() => setShowMenu(!showMenu)} className='profile-button'>
-                <i className='fa-solid fa-user-circle fa-2x' />
+                <img className="profile-button-user-image" src={userImage} alt="" />
+                {/* <i className='fa-solid fa-user-circle fa-2x' /> */}
             </button>
 
             {showMenu && (
                 <ul className='profile-menu-details'>
-                    <li className='greeting'>Hey <span className='italic-span'>{user.username}</span></li>
-                    {/* <li>{user.email}</li> */}
-                    <li>
-                        <button onClick={logout} className='logout-button'>Log Out</button>
-                    </li>
+                    <div className='profile-menu-detials-user-details'>
+                        <img className="profile-button-user-image" src={userImage} alt="" />
+                        <li className='greeting'>{user.username}</li>
+                    </div>
+                    <div>
+                        <button onClick={logout} className='logout-button'>Sign out of Chatter</button>
+                    </div>
                 </ul>
             )}
         </div>
