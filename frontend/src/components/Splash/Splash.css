@@ -1,12 +1,128 @@
 .splash-main {
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
     justify-content: center;
-    align-items: center;
-    height: 100vh;
+    /* height: 100vh; */
+    background-color: #611f69;
+    align-items: start;
+    padding: 25px;
+    /* width: 100%; */
 }
 
-.splash-main > p {
+.splash-inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 80%;
+    min-width: 500px;
+    /* margin: 0 auto; */
+}
+
+.splash-inner > p {
     font-size: 20px;
     font-weight: bold;
+}
+
+.splash-inner > h1 {
+    font-size: 36px;
+    font-weight: bold;
+    /* margin: 0 auto; */
+    margin-top: 40px;
+    text-align: start;
+}
+
+.splash-login {
+    /* width: 100%; */
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    /* justify-content: space-between; */
+    margin: 0 auto;
+    margin-top: 25px;
+    border: 4px solid rgba(255, 255, 255, .2);
+    border-radius: 8px;
+    color: #000000;
+    /* height: 270px; */
+    width: 100%;
+}
+
+.splash-login > h2 {
+    padding: 40px 16px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    background-color: #ECDEEC;
+    font-size: 18px;
+}
+
+.splash-login-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #FFFFFF;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    padding: 40px 16px;
+}
+
+.workspace {
+    display: flex;
+    align-items: center;
+}
+
+.workspace-details {
+    margin-left: 15px;
+}
+
+.workspace-details > h2 {
+    font-weight: bold;
+}
+
+.splash-login-button, .splash-signup-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    outline: none;
+}
+
+.splash-login-button {
+    background-color: #611f69;
+    padding: 16px;
+    border-radius: 5px;
+    color: #ECDEEC;
+    font-weight: bold;
+}
+
+.splash-signup-button {
+    color: #36C5F0;
+    font-size: inherit;
+}
+
+.splash-signup {
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+    width: 100%;
+}
+
+.splash-signup > p {
+    margin-right: 5px;
+}
+
+.how-to-use {
+    display: flex;
+    flex-direction: column;
+}
+
+.how-to-use-container {
+    display: flex;
+}
+
+.footer {
+    display: flex;
+}
+
+.footer-1, .footer-2, .footer-3 {
+    width: 150px;
+    
 }

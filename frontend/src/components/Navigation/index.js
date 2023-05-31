@@ -42,7 +42,8 @@ function Navigation() {
     return (
         <div className='nav-bar'>
             <div className='nav-left'>
-                <NavLink exact to='/' className='home-link'>CHATTER</NavLink>
+                
+                <NavLink exact to='/rooms' className='home-link'><div className='logo'></div> <span>CHATTER</span></NavLink>
             </div>
             {sessionLinks}
         </div>

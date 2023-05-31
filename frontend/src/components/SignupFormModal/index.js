@@ -3,8 +3,14 @@ import React, { useState } from 'react';
 import { Modal } from '../../context/Modal';
 import SignupForm from './SignupForm';
 
-function SignupFormModal() {
+function SignupFormModal(props) {
     const [showModal, setShowModal] = useState(false);
+
+    let klass = 'session-button signup'
+
+    if (props.splash) {
+        klass = 'splash-signup-button'
+    }
 
     const openModal = (e) => {
         e.preventDefault();
@@ -14,7 +20,7 @@ function SignupFormModal() {
 
     return (
         <div>
-            <button onClick={openModal} className='session-button signup'>Sign Up</button>
+            <button onClick={openModal} className={klass}>Sign Up</button>
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
                     <SignupForm />

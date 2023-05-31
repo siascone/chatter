@@ -32,20 +32,35 @@
     border: 1px solid #333;
     margin-left: 5px;
     color: #333;
-    background-color: #dda448;
+    /* background-color: #dda448; */
 }
 
-.home-link, .nav-right-logged-out {
+.login {
+    background-color: #2EB67D;
+}
+
+.signup {
+    background-color: #ECB22E;
+}
+
+.nav-right-logged-out {
     margin: 10px;
 }
 
 .home-link {
     /* color: #dda448; */
-    color: #8d6a9f;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    color: #611f69;
     font-size: 24px;
     font-weight: bold;
     text-decoration: none;
     /* text-shadow: 1px 1px 0 #333; */
+}
+
+.home-link > span {
+    margin-left: 3px;
 }
 
 .profile-menu-main {
@@ -144,7 +159,7 @@
     display: flex;
     flex-direction: column;
     padding: 20px;
-    color: #8d6a9f;
+    color: #611f69;
 }
 
 .session-form-container > h1 {
@@ -187,10 +202,25 @@
 }
 
 .demo-login {
-    background-color: #8d6a9f !important;
+    background-color: #611f69 !important;
+    color: #FFFFFF;
 }
 
-/* .nav-left {
+.nav-left {
     display: flex;
     align-items: center;
-} */
+}
+
+.logo {
+    height: 30px;
+    width: 30px;
+    background: url(../../../../app/assets/slack_tile_logo_icon_168820.png);
+    background-size: cover;
+}
+
+.logo-large {
+    height: 60px;
+    width: 60px;
+    background: url(../../../../app/assets/slack_tile_logo_icon_168820.png);
+    background-size: cover;
+}

@@ -16,6 +16,12 @@ export const receiveUsers = users => {
     }
 }
 
+export const fetchAllUsers = () => async dispatch => {
+    let res = await fetch('/api/users')
+    let data = await res.json();
+    dispatch(receiveUsers(data.users))
+}
+
 export const endSession = (currentUserId, dispatch) => {
     storeCurrentUser(null);
     return dispatch(removeCurrentUser(currentUserId));

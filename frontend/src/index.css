@@ -1,5 +1,12 @@
 /* TODO Add site wide styles */
 /* 8d6a9f c5cbd3 8cbcb9 dda448 bb342f */
+
+/* --- SLACK COLOR CODES --- */
+/* light blue #36C5F0 */
+/* green #2EB67D */
+/* red #E01E5A */
+/* yellow #ECB22E */
+
 @import './reset.css';
 
 html {
