@@ -21,6 +21,7 @@ body {
     color: #D1D2D3;
     height: 100%;
     /* overflow: hidden; */
+    min-width: 600px;
 }
 
 #root {

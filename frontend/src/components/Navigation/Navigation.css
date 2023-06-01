@@ -36,11 +36,15 @@
 }
 
 .login {
-    background-color: #2EB67D;
+    background-color: #36C5F0;
+    /* border: 1px solid #ffffff; */
+    color: #ECDEEC;
 }
 
 .signup {
-    background-color: #ECB22E;
+    background-color: #611f69;
+    color: #ECDEEC;
+    /* border: 1px solid #ffffff; */
 }
 
 .nav-right-logged-out {
